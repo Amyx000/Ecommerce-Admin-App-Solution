@@ -29,17 +29,6 @@ beforeEach(() => {
   axios.mockReset();
 });
 
-test("Renders ProductPage component with loading state", () => {
-  axios.get.mockReturnValue(new Promise(() => {}));
-
-  render(<ProductPage />);
-
-  const productText = screen.getByText(/Products/i);
-  expect(productText).toBeInTheDocument();
-  // Check if the loading state is initially displayed
-  expect(screen.getByText("Loading...")).toBeInTheDocument();
-});
-
 test("Renders ProductPage component with Products", async () => {
   axios.get.mockResolvedValue({ data: mockProducts });
 

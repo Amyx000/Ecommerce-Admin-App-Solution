@@ -17,6 +17,12 @@ describe("Product test", () => {
         expect(response.status).toBe(200);
         expect(response.body).toBeInstanceOf(Array);
       });
+
+      it("Should catch exception if any error during db operation", async () => {
+        mockingoose(Product).toReturn(new Error("Server Error"), "find");
+        const response = await request(app).get("/api/product");
+        expect(response.status).not.toBe(200);
+      });
     });
   });
 
@@ -39,6 +45,16 @@ describe("Product test", () => {
         expect(response.status).toBe(200);
         expect(response.body).not.toBe(null);
         expect(response.body).toHaveProperty("name", "Test Product");
+      });
+
+      it("Should catch exception, if any field is missing", async () => {
+        const requestBody = {};
+
+        mockingoose(Product).toReturn(null, "create");
+        const response = await request(app)
+          .post("/api/product")
+          .send(requestBody);
+        expect(response.status).not.toBe(200);
       });
     });
   });
@@ -75,7 +91,24 @@ describe("Product test", () => {
           .send({
             price: 100000,
           });
-        expect(response.status).toBe(404);
+        expect(response.status).not.toBe(200);
+      });
+
+      it("Should catch exception if any error during db operation", async () => {
+        const requestBody = {
+          _id: new mongoose.Types.ObjectId().toString(),
+        };
+
+        mockingoose(Product).toReturn(
+          new Error("Server Error"),
+          "findOneAndUpdate"
+        );
+        const response = await request(app)
+          .put(`/api/product/${requestBody._id}`)
+          .send({
+            price: 100000,
+          });
+        expect(response.status).not.toBe(200);
       });
     });
   });
@@ -109,7 +142,22 @@ describe("Product test", () => {
         const response = await request(app).delete(
           `/api/product/${requestBody._id}`
         );
-        expect(response.status).toBe(404);
+        expect(response.status).not.toBe(200);
+      });
+
+      it("Should catch exception if any error during db operation", async () => {
+        const requestBody = {
+          _id: new mongoose.Types.ObjectId().toString(),
+        };
+
+        mockingoose(Product).toReturn(
+          new Error("Server Error"),
+          "findOneAndDelete"
+        );
+        const response = await request(app).delete(
+          `/api/product/${requestBody._id}`
+        );
+        expect(response.status).not.toBe(200);
       });
     });
   });

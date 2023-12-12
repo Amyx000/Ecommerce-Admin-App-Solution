@@ -11,16 +11,20 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
     "@types/jest": "^29.5.11",
-    "@types/testing-library__jest-dom": "^6.0.0",
     "jest": "^27.5.1",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "@babel/core": "^7.13.14",
+    "auto-changelog": "~2.2.1",
+    "write": "^2.0.0",
+    "xmlbuilder": "^15.1.1",
+    "xhr2": "^0.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --detectOpenHandles",
     "test:cov": "react-scripts test --coverage",
-    "jest": "react-scripts test",
+    "jest": "react-scripts test --detectOpenHandles",
     "eject": "react-scripts eject"
   },
   "browserslist": [
@@ -36,5 +40,9 @@
     ]
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  }
 }

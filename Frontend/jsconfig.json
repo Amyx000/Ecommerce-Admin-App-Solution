@@ -1,9 +1,5 @@
 {
   "typeAcquisition": {
-    "include": [
-      "jest",
-      "@testing-library/jest-dom",
-      "testing-library__jest-dom"
-    ]
+    "include": ["jest"]
   }
 }

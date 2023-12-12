@@ -79,7 +79,7 @@ function ProductPage() {
                       <img
                         src={product.image}
                         alt={product.name}
-                        style={{ width: "50px", height: "50px" }}
+                        style={{ width: "50px" }}
                       />
                     </td>
                     <td>{product.name}</td>

@@ -9,8 +9,5 @@ npm-debug.log*
 # Jest
 coverage/
 
-# dotenv
-.env
-
 # Compiled binary addons
 build/
