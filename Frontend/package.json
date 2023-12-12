@@ -1,6 +1,8 @@
 {
   "name": "ecommerce-frontend",
   "version": "1.0.0",
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "axios": "^0.23.0",
     "react": "^17.0.2",
@@ -22,10 +24,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --detectOpenHandles",
-    "test:cov": "react-scripts test --coverage",
     "jest": "react-scripts test --detectOpenHandles",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test --detectOpenHandles --reporters=./custom-reporter.js",
+    "test:cov": "npm test -- --coverage --watchAll=false",
+    "test:debug": "react-scripts --inspect-brk test --runInBand",
+    "eject": "react-scripts eject",
+    "changelog": "auto-changelog --starting-version 3.0.0 --commit-limit false --hide-credit"
   },
   "browserslist": [
     ">0.2%",
@@ -39,8 +43,6 @@
       "react-app/jest"
     ]
   },
-  "author": "",
-  "license": "ISC",
   "engines": {
     "node": ">=10",
     "npm": ">=6"

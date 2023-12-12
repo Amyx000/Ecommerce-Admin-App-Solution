@@ -1,11 +1,16 @@
 const request = require("supertest");
-const app = require("../../index");
+const { app, closeServer } = require("../../index");
 const Product = require("../../modules/product/model/product.model");
 const mockingoose = require("mockingoose");
-const { default: mongoose, Mongoose } = require("mongoose");
+const { default: mongoose } = require("mongoose");
 
 beforeEach(() => {
   mockingoose.resetAll(); // Reset mockingoose before each test
+});
+
+afterAll(() => {
+  mongoose.connection.close();
+  closeServer();
 });
 
 describe("Product test", () => {

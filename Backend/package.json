@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --detectOpenHandles",
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "jest": "jest --detectOpenHandles --runInBand --updateSnapshot",
+    "test": "jest --detectOpenHandles --reporters=./custom-reporter.js --runInBand",
+    "test:cov": "jest --detectOpenHandles --reporters=./custom-reporter.js --coverage --runInBand"
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +26,8 @@
     "jest": "^28.1.3",
     "mockingoose": "^2.15.2",
     "nodemon": "^2.0.19",
-    "supertest": "^6.2.4"
+    "supertest": "^6.2.4",
+    "xhr2": "^0.2.1",
+    "xmlbuilder": "^15.1.1"
   }
 }

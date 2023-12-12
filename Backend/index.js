@@ -14,6 +14,10 @@ app.use(cors());
 // Api Routes
 app.use("/api/product", productRouter);
 
-app.listen(process.env.PORT);
+const server = app.listen(process.env.PORT);
 
-module.exports = app;
+const closeServer = () => {
+  server.close();
+};
+
+module.exports = { app, closeServer };
