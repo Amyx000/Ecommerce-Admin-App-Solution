@@ -12,4 +12,6 @@ const productSchema = new mongoose.Schema({
   },
 });
 
+mongoose.pluralize(null);
+
 module.exports = productSchema;
