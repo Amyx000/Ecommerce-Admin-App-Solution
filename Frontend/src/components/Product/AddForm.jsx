@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useState } from "react";
+import productService from "../../services/product.service";
 
 function AddForm({ onSubmit }) {
   const [productDetails, setProductDetails] = useState({
@@ -21,11 +21,8 @@ function AddForm({ onSubmit }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/product`,
-        productDetails
-      );
-      onSubmit(res.data);
+      const product = await productService.addProduct(productDetails);
+      onSubmit(product);
       setProductDetails({
         name: "",
         description: "",
@@ -33,9 +30,7 @@ function AddForm({ onSubmit }) {
         image: "",
         featured: false,
       });
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   return (

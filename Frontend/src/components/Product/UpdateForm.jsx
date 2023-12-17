@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useState } from "react";
+import productService from "../../services/product.service";
 
 function UpdateForm({ product, onUpdate, onCancel }) {
   const [productDetails, setProductDetails] = useState(product);
@@ -15,14 +15,12 @@ function UpdateForm({ product, onUpdate, onCancel }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put(
-        `${process.env.REACT_APP_BACKEND_URL}/api/product/${productDetails._id}`,
+      const product = await productService.updateProduct(
+        productDetails._id,
         productDetails
       );
-      onUpdate(res.data);
-    } catch (error) {
-      console.log(error);
-    }
+      onUpdate(product);
+    } catch (error) {}
   };
 
   return (

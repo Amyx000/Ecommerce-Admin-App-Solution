@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import AddForm from "./AddForm";
 import UpdateForm from "./UpdateForm";
+import productService from "../../services/product.service";
 
 function ProductPage() {
   const [products, setProducts] = useState([]);
@@ -18,12 +18,10 @@ function ProductPage() {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/product`
-      );
-      setProducts(res.data);
+      const product = await productService.getAllProducts();
+      setProducts(product);
     } catch (error) {
-      console.log(error);
+      setProducts([]);
     } finally {
       setLoading(false);
     }
@@ -31,13 +29,9 @@ function ProductPage() {
 
   const handleDelete = async (productId) => {
     try {
-      await axios.delete(
-        `${process.env.REACT_APP_BACKEND_URL}/api/product/${productId}`
-      );
+      await productService.deleteProduct(productId);
       setProducts((prev) => prev.filter((obj) => obj._id !== productId));
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -58,7 +52,7 @@ function ProductPage() {
             loading ? (
               <div>Loading...</div>
             ) : (
-              <div>No Products Found!</div>
+              <div>No Products Found</div>
             )
           ) : (
             <table border="1">
