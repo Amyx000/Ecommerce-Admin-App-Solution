@@ -2,13 +2,6 @@ import productService from "../../services/product.service";
 
 let ProductService = "ProductService";
 
-jest.mock("../../services/product.service", () => ({
-  getAllProducts: jest.fn(),
-  addProduct: jest.fn(),
-  updateProduct: jest.fn(),
-  deleteProduct: jest.fn(),
-}));
-
 jest.mock("axios");
 
 describe(ProductService, () => {
