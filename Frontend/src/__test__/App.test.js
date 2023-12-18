@@ -4,7 +4,7 @@ const { render, screen } = require("@testing-library/react");
 
 describe("AppComponent", () => {
   describe("boundary", () => {
-    test("AppComponent should render the navigation links", () => {
+    test("AppComponent boundary should render the navigation links", () => {
       render(
         <Router>
           <App />

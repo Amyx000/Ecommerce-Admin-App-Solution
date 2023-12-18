@@ -38,14 +38,14 @@ describe(ProductPageTest, () => {
   });
 
   describe("boundary", () => {
-    test(`${ProductPageTest} should render product heading`, async () => {
+    test(`${ProductPageTest} boundary should render product heading`, async () => {
       productService.getAllProducts.mockResolvedValue([]);
       render(<ProductPage />);
 
       expect(await screen.findByText("Products")).toBeTruthy();
     });
 
-    test(`${ProductPageTest} should render product table with appropiate heading when data is available`, async () => {
+    test(`${ProductPageTest} boundary should render product table with appropiate heading when data is available`, async () => {
       productService.getAllProducts.mockResolvedValue(mockProducts);
       render(<ProductPage />);
 
@@ -58,27 +58,27 @@ describe(ProductPageTest, () => {
       expect(await screen.findByText("Action")).toBeTruthy();
     });
 
-    test(`${ProductPageTest} should render all the products when data is available`, async () => {
+    test(`${ProductPageTest} boundary should render all the products when data is available`, async () => {
       productService.getAllProducts.mockResolvedValue(mockProducts);
       render(<ProductPage />);
 
       expect(await screen.findByText("Product 1")).toBeTruthy();
     });
 
-    test(`${ProductPageTest} should render "No Products Found" when no data is available`, async () => {
+    test(`${ProductPageTest} boundary should render "No Products Found" when no data is available`, async () => {
       productService.getAllProducts.mockResolvedValue([]);
       render(<ProductPage />);
       expect(await screen.findByText("No Products Found")).toBeTruthy();
     });
 
-    test(`${ProductPageTest} should render "No Products Found" when product fetching fails`, async () => {
+    test(`${ProductPageTest} boundary should render "No Products Found" when product fetching fails`, async () => {
       const error = new Error("API fails");
       productService.getAllProducts.mockRejectedValueOnce(error);
       render(<ProductPage />);
       expect(await screen.findByText("No Products Found")).toBeTruthy();
     });
 
-    test(`${ProductPageTest} should delete by ID when click on delete button`, async () => {
+    test(`${ProductPageTest} boundary should delete by ID when click on delete button`, async () => {
       productService.getAllProducts.mockResolvedValue(mockProducts);
       render(<ProductPage />);
       expect(await screen.findByText("Product 1")).toBeTruthy();
@@ -92,7 +92,7 @@ describe(ProductPageTest, () => {
       });
     });
 
-    test(`${ProductPageTest} should render product when delete function fails`, async () => {
+    test(`${ProductPageTest} boundary should render product when delete function fails`, async () => {
       productService.getAllProducts.mockResolvedValue(mockProducts);
       render(<ProductPage />);
       expect(await screen.findByText("Product 1")).toBeTruthy();

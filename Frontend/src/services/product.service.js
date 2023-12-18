@@ -30,6 +30,9 @@ const productService = {
   updateProduct: async (productId, productData) => {
     // write your logic here
     try {
+      if (!productId) {
+        throw new Error("ProductId is required!");
+      }
       const res = await axiosInstance.put(`/product/${productId}`, productData);
       return res.data;
     } catch (error) {
@@ -40,6 +43,9 @@ const productService = {
   deleteProduct: async (productId) => {
     // write your logic here
     try {
+      if (!productId) {
+        throw new Error("ProductId is required!");
+      }
       const res = await axiosInstance.delete(`/product/${productId}`);
       return res.data;
     } catch (error) {

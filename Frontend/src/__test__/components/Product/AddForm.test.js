@@ -35,12 +35,12 @@ describe(AddFormTest, () => {
     },
   ];
   describe("boundary", () => {
-    test(`${AddFormTest} should render the AddForm with "Add" button`, () => {
+    test(`${AddFormTest} boundary should render the AddForm with "Add" button`, () => {
       render(<AddForm />);
       expect(screen.getByText("Add")).toBeTruthy();
     });
 
-    test(`${AddFormTest} should submit the form with new product details`, async () => {
+    test(`${AddFormTest} boundary should submit the form with new product details`, async () => {
       const { _id, ...addProductData } = mockProducts[0];
       productService.addProduct.mockResolvedValueOnce({
         data: { ...mockProducts[0], _id: "3" },
@@ -67,7 +67,7 @@ describe(AddFormTest, () => {
       });
     });
 
-    test(`${AddFormTest} should throw error when failed to add a new product`, async () => {
+    test(`${AddFormTest} boundary should throw error when failed to add a new product`, async () => {
       productService.addProduct.mockRejectedValue(new Error("Add failed"));
       const onSubmit = jest.fn();
       render(<AddForm onSubmit={onSubmit} />);

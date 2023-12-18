@@ -34,12 +34,12 @@ describe(updateFormTest, () => {
     },
   ];
   describe("boundary", () => {
-    test(`${updateFormTest} should render the UpdateForm with "Save" button`, () => {
+    test(`${updateFormTest} boundary should render the UpdateForm with "Save" button`, () => {
       render(<UpdateForm product={mockProducts[0]} />);
       expect(screen.getByText("Save")).toBeTruthy();
     });
 
-    test(`${updateFormTest} should submit the form with updated product details`, async () => {
+    test(`${updateFormTest} boundary should submit the form with updated product details`, async () => {
       productService.updateProduct.mockResolvedValueOnce({
         data: { ...mockProducts[0], name: "New Name" },
       });
@@ -62,7 +62,7 @@ describe(updateFormTest, () => {
       });
     });
 
-    test(`${updateFormTest} should throw error when failed to update product details`, async () => {
+    test(`${updateFormTest} boundary should throw error when failed to update product details`, async () => {
       productService.updateProduct.mockRejectedValue(
         new Error("Update failed")
       );
