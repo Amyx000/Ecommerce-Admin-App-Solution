@@ -17,6 +17,16 @@ const productService = {
     }
   },
 
+  searchProductByName: async (params) => {
+    // write your logic here
+    try {
+      const res = await axiosInstance.get("/product/search", { params });
+      return res.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
   addProduct: async (productData) => {
     // write your logic here
     try {

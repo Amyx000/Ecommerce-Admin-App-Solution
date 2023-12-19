@@ -13,6 +13,17 @@ class ProductController {
     }
   }
 
+  async searchProductByName(req, res) {
+    // write your logic here
+    try {
+      const name = req.query.name;
+      const products = await productService.searchProductByName(name);
+      return res.status(200).json(products);
+    } catch (error) {
+      return res.status(400).json({ error });
+    }
+  }
+
   async addProduct(req, res) {
     // write your logic here
     try {

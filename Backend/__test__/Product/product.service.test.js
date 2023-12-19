@@ -39,6 +39,29 @@ describe("Product Service", () => {
       await expect(productService.getAllProducts()).rejects.toThrow();
     });
 
+    it(`${productTest} should search product by name`, async () => {
+      const products = [
+        {
+          _id: "product_id_1",
+          name: "Test Product",
+          price: 100000,
+          featured: false,
+          description: "",
+          image: "testing.png",
+          createdAt: new Date().toISOString(),
+        },
+      ];
+      ProductModel.find.mockResolvedValue(products);
+      const response = await productService.searchProductByName("Test");
+      expect(response).toEqual(products);
+    });
+
+    it(`${productTest} should throw error when fail searching product by name`, async () => {
+      const error = new Error("Internal Server Error");
+      ProductModel.find.mockRejectedValue(error);
+      await expect(productService.searchProductByName()).rejects.toThrow();
+    });
+
     it(`${productTest} should create a new product`, async () => {
       const productId = "product_id";
       const ProductBody = {

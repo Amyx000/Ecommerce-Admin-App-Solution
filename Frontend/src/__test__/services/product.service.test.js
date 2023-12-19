@@ -49,6 +49,30 @@ describe(ProductService, () => {
       }
     });
 
+    test(`${ProductService} functional should search product by name`, async () => {
+      let isNull = false;
+      try {
+        const response = await productService.searchProductByName({
+          name: "text",
+        });
+        isNull = response === null;
+        throw new Error("Error in searchProductByName()");
+      } catch (error) {
+        if (isNull) {
+          expect(error).toBeNull();
+        } else {
+          productService.searchProductByName = jest
+            .fn()
+            .mockResolvedValueOnce(mockProducts);
+          const result = await productService.searchProductByName({
+            name: "Product",
+          });
+          expect(productService.searchProductByName).toHaveBeenCalled();
+          expect(result).toEqual(mockProducts);
+        }
+      }
+    });
+
     test(`${ProductService} functional should add a new product`, async () => {
       let isNull = false;
       try {

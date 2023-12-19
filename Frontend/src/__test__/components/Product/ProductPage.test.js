@@ -78,6 +78,26 @@ describe(ProductPageTest, () => {
       expect(await screen.findByText("No Products Found")).toBeTruthy();
     });
 
+    test(`${ProductPageTest} boundary should handle search by product name with empty input`, async () => {
+      productService.getAllProducts.mockResolvedValue([]);
+      render(<ProductPage />);
+      expect(await screen.findByText("No Products Found")).toBeTruthy();
+      productService.searchProductByName.mockResolvedValue(mockProducts);
+      const searchBtn = screen.getByText("Search");
+      fireEvent.click(searchBtn);
+      expect(await screen.findByText("Product 1")).toBeTruthy();
+    });
+
+    test(`${ProductPageTest} boundary should render "No Products Found" when no product found during search`, async () => {
+      productService.getAllProducts.mockResolvedValue(mockProducts);
+      render(<ProductPage />);
+      expect(await screen.findByText("Product 1")).toBeTruthy();
+      productService.searchProductByName.mockResolvedValue([]);
+      const searchBtn = screen.getByText("Search");
+      fireEvent.click(searchBtn);
+      expect(await screen.findByText("No Products Found")).toBeTruthy();
+    });
+
     test(`${ProductPageTest} boundary should delete by ID when click on delete button`, async () => {
       productService.getAllProducts.mockResolvedValue(mockProducts);
       render(<ProductPage />);

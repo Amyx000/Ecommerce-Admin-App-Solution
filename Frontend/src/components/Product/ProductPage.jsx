@@ -5,6 +5,7 @@ import productService from "../../services/product.service";
 
 function ProductPage() {
   const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState({
     _id: "",
@@ -38,6 +39,16 @@ function ProductPage() {
     fetchProducts();
   }, []);
 
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    try {
+      const products = await productService.searchProductByName({
+        name: search,
+      });
+      setProducts(products || []);
+    } catch (error) {}
+  };
+
   return (
     <div>
       <h2>Products</h2>
@@ -45,55 +56,65 @@ function ProductPage() {
         onSubmit={(product) => setProducts((prev) => [...prev, product])}
       />
       <hr />
-      {/* <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}> */}
       {!selectedProduct._id ? (
-        <div>
-          {!products.length ? (
-            loading ? (
-              <div>Loading...</div>
+        <>
+          <form onSubmit={handleSearch} style={{ marginBottom: "10px" }}>
+            <h3>Search Product</h3>
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <button type="submit">Search</button>
+          </form>
+          <div>
+            {!products.length ? (
+              loading ? (
+                <div>Loading...</div>
+              ) : (
+                <div>No Products Found</div>
+              )
             ) : (
-              <div>No Products Found</div>
-            )
-          ) : (
-            <table border="1">
-              <thead>
-                <tr>
-                  <th>Image</th>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th>Description</th>
-                  <th>Featured</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products.map((product, i) => (
-                  <tr key={i}>
-                    <td>
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        style={{ width: "50px" }}
-                      />
-                    </td>
-                    <td>{product.name}</td>
-                    <td>{product.price}</td>
-                    <td>{product.description}</td>
-                    <td>{product.featured ? "Yes" : "No"}</td>
-                    <td>
-                      <button onClick={() => setSelectedProduct(product)}>
-                        Update
-                      </button>
-                      <button onClick={() => handleDelete(product._id)}>
-                        Delete
-                      </button>
-                    </td>
+              <table border="1">
+                <thead>
+                  <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Featured</th>
+                    <th>Action</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
+                </thead>
+                <tbody>
+                  {products.map((product, i) => (
+                    <tr key={i}>
+                      <td>
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          style={{ width: "50px" }}
+                        />
+                      </td>
+                      <td>{product.name}</td>
+                      <td>{product.price}</td>
+                      <td>{product.description}</td>
+                      <td>{product.featured ? "Yes" : "No"}</td>
+                      <td>
+                        <button onClick={() => setSelectedProduct(product)}>
+                          Update
+                        </button>
+                        <button onClick={() => handleDelete(product._id)}>
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </>
       ) : (
         <div>
           <UpdateForm
@@ -124,7 +145,6 @@ function ProductPage() {
           />
         </div>
       )}
-      {/* </div> */}
     </div>
   );
 }

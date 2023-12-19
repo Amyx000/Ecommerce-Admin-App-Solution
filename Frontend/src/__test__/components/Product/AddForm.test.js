@@ -9,7 +9,7 @@ const {
 
 jest.mock("../../../services/product.service");
 
-let AddFormTest = "AddForm Component";
+let AddFormTest = "AddFormComponent";
 describe(AddFormTest, () => {
   beforeEach(() => {
     productService.getAllProducts.mockReset();

@@ -12,6 +12,18 @@ class ProductServiceImpl extends ProdcutService {
     }
   }
 
+  async searchProductByName(name) {
+    // write your logic here
+    try {
+      const products = await Product.find({
+        name: { $regex: name, $options: "i" },
+      });
+      return products;
+    } catch (error) {
+      throw new Error("Internal Server Error");
+    }
+  }
+
   async addProduct(productData) {
     // write your logic here
     try {
